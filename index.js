@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const { createServer } = require("node:http");
 const { Server } = require("socket.io");
+const { auth } = require("./firebase.js");
 
 dotenv.config();
 
@@ -15,6 +16,11 @@ const port = process.env.PORT;
 
 io.on("connection", (socket) => {
   console.log("New connection: ", socket.id);
+});
+
+app.get("/users", async (req, res) => {
+  const { users } = await auth.listUsers();
+  res.json({ success: true, message: "Get list of all users", users });
 });
 
 server.listen(port, () => {
