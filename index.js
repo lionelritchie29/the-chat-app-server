@@ -20,7 +20,7 @@ io.on("connection", (socket) => {
 
 app.get("/users", async (req, res) => {
   const { users } = await auth.listUsers();
-  res.json({ success: true, message: "Get list of all users", users });
+  res.json({ success: true, message: "Get list of all users", data: users });
 });
 
 server.listen(port, () => {
